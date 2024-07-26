@@ -1,3 +1,6 @@
+# Swagger Documentation link
+http://127.0.0.1:5000/apidocs/
+
 # SupplyChainApp API Documentation
 
 ## Base URL
