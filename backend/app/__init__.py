@@ -13,7 +13,13 @@ def create_app():
     # Set up Swagger
     swagger = Swagger(app)
 
-    from .routes import main
-    app.register_blueprint(main)
+    # Register routes
+    from app.routes.companies import companies_bp
+    from app.routes.company_details import company_details_bp
+    from app.routes.locations import locations_bp
+
+    app.register_blueprint(companies_bp)
+    app.register_blueprint(company_details_bp)
+    app.register_blueprint(locations_bp)
 
     return app

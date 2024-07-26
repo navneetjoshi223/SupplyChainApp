@@ -1,0 +1,27 @@
+---
+tags:
+  - Companies
+summary: Get all companies
+description: Fetches a list of all companies.
+responses:
+  200:
+    description: A list of companies
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          company_id:
+            type: integer
+          name:
+            type: string
+          address:
+            type: string
+          latitude:
+            type: number
+            format: float
+          longitude:
+            type: number
+            format: float
+  500:
+    description: Internal Server Error
