@@ -3,10 +3,10 @@ Project as part of take home assessment for Supply chain data hub Research Assis
 
 # How to run:-
 ## BACKEND
-### Install dependencies
+### Install dependencies:
 pip install -r requirements.txt
 
-### Create and activate a virtual environment
+### Create and activate a virtual environment:
 python -m venv venv
 
 
