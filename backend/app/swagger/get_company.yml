@@ -1,0 +1,31 @@
+---
+tags:
+  - Companies
+parameters:
+  - name: company_id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the company to retrieve
+responses:
+  200:
+    description: Details of the specified company
+    schema:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+  404:
+    description: Company not found
+  500:
+    description: Internal Server Error

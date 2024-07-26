@@ -1,0 +1,35 @@
+---
+tags:
+  - Locations
+parameters:
+  - name: company_id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the company whose locations to retrieve
+responses:
+  200:
+    description: A list of locations for the specified company
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          location_id:
+            type: integer
+          company_id:
+            type: integer
+          name:
+            type: string
+          address:
+            type: string
+          latitude:
+            type: number
+            format: float
+          longitude:
+            type: number
+            format: float
+  404:
+    description: No locations found for this company
+  500:
+    description: Internal Server Error
