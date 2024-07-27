@@ -1,5 +1,12 @@
 This is the backend for the SupplyChainApp, built with Flask.
 
+## Libraries and Packages Used
+
+	•	Flask: A micro web framework for Python.
+	•	Flask-Testing: Provides unit testing support for Flask.
+	•	Flasgger: Easy Swagger integration for Flask.
+	•	Pandas: For CSV file handling efficiently.
+
 # Swagger Documentation link
 http://127.0.0.1:5000/apidocs/
 
