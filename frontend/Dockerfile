@@ -1,32 +1,26 @@
-# Stage 1: Build the React app
-FROM node:14 as build
+# Frontend Dockerfile
 
-# Set working directory
+# Use an official Node.js runtime as a parent image
+FROM node:16
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy the package.json and package-lock.json files
 COPY package*.json ./
 
-# Install dependencies
+# Install any needed packages specified in package.json
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application code into the container
 COPY . .
 
-# Build the React app
+# Build the application
 RUN npm run build
 
-# Stage 2: Serve the app with Nginx
-FROM nginx:alpine
+# Serve the application
+RUN npm install -g serve
+CMD ["serve", "-s", "build"]
 
-# Copy the built app from the previous stage
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Copy the Nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Make port 3000 available to the world outside this container
+EXPOSE 3000
