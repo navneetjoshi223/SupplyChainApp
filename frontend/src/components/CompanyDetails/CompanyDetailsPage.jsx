@@ -46,7 +46,7 @@ function CompanyDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(0);
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
