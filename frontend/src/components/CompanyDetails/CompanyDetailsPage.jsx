@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails, Grid, Checkbox, FormControlLabel } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -45,6 +46,7 @@ function CompanyDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocations, setSelectedLocations] = useState([]);
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -84,12 +86,42 @@ function CompanyDetailsPage() {
     setSelectedLocation(location);
   };
 
+  const handleSelectLocation = (location) => {
+    setSelectedLocations((prevSelectedLocations) => {
+      if (prevSelectedLocations.includes(location)) {
+        return prevSelectedLocations.filter((loc) => loc !== location);
+      } else {
+        return [...prevSelectedLocations, location];
+      }
+    });
+  };
+
   if (loading) {
     return <div className="loading-spinner"><CircularProgress /></div>;
   }
 
   if (error) {
-    return <div className="error-message">Error: {error}</div>;
+    return (
+      <Container>
+        <Paper elevation={3} className="error-container">
+          <Box display="flex" flexDirection="column" alignItems="center" p={4}>
+            <ErrorOutlineIcon color="error" style={{ fontSize: 60, marginBottom: 16 }} />
+            <Typography variant="h5" gutterBottom>Error</Typography>
+            <Typography variant="body1" align="center">
+              It seems we could not fetch the company details. Please try again!
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => window.location.reload()}
+              style={{ marginTop: 16 }}
+            >
+              Retry
+            </Button>
+          </Box>
+        </Paper>
+      </Container>
+    );
   }
 
   if (!company) {
