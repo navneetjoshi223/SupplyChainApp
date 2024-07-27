@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails, Grid, Checkbox, FormControlLabel } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -46,7 +46,7 @@ function CompanyDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -82,18 +82,12 @@ function CompanyDetailsPage() {
     setLoading(false);
   }, [id]);
 
-  const handleLocationClick = (location) => {
-    setSelectedLocation(location);
+  const handleAccordionChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
   };
 
-  const handleSelectLocation = (location) => {
-    setSelectedLocations((prevSelectedLocations) => {
-      if (prevSelectedLocations.includes(location)) {
-        return prevSelectedLocations.filter((loc) => loc !== location);
-      } else {
-        return [...prevSelectedLocations, location];
-      }
-    });
+  const handleLocationClick = (location) => {
+    setSelectedLocation(location);
   };
 
   if (loading) {
@@ -153,13 +147,13 @@ function CompanyDetailsPage() {
             </Button>
           </Box>
         </Paper>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Card className="locations-card">
+        <div className="flex-container">
+          <div className="locations-container">
+            <Paper elevation={3} className="locations-card">
               <CardContent>
                 <Typography variant="h5" gutterBottom>Locations</Typography>
                 {locations.map((location, index) => (
-                  <Accordion key={index} onClick={() => handleLocationClick(location)}>
+                  <Accordion key={index} expanded={expanded === index} onChange={handleAccordionChange(index)} onClick={() => handleLocationClick(location)}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls={`panel${index}-content`}
@@ -177,37 +171,35 @@ function CompanyDetailsPage() {
                   </Accordion>
                 ))}
               </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} className="map-container">
-              <MapContainer
-                center={[company.latitude, company.longitude]}
-                zoom={13}
-                style={{ height: '400px' }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <Marker position={[company.latitude, company.longitude]} icon={defaultIcon}>
-                  <Popup>{company.name}</Popup>
-                </Marker>
-                {locations.map((location, index) => (
-                  <Marker
-                    key={index}
-                    position={[location.latitude, location.longitude]}
-                    icon={selectedLocation && selectedLocation.id === location.id ? selectedIcon : defaultIcon}
-                  >
-                    <Tooltip>{location.name}</Tooltip>
-                    <Popup>{location.name}</Popup>
-                  </Marker>
-                ))}
-                <MapFlyTo selectedLocation={selectedLocation} />
-              </MapContainer>
             </Paper>
-          </Grid>
-        </Grid>
+          </div>
+          <div className="map-container">
+            <MapContainer
+              center={[company.latitude, company.longitude]}
+              zoom={13}
+              style={{ height: '100%', width: '100%' }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={[company.latitude, company.longitude]} icon={defaultIcon}>
+                <Popup>{company.name}</Popup>
+              </Marker>
+              {locations.map((location, index) => (
+                <Marker
+                  key={index}
+                  position={[location.latitude, location.longitude]}
+                  icon={selectedLocation && selectedLocation.id === location.id ? selectedIcon : defaultIcon}
+                >
+                  <Tooltip>{location.name}</Tooltip>
+                  <Popup>{location.name}</Popup>
+                </Marker>
+              ))}
+              <MapFlyTo selectedLocation={selectedLocation} />
+            </MapContainer>
+          </div>
+        </div>
       </Container>
     </>
   );
