@@ -28,13 +28,13 @@ body {
   
   .company-info {
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     border-radius: 15px;
     background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
   }
   
   .locations-card {
-    margin-top: 20px;
+    margin: 20px 0;
     border-radius: 15px;
   }
   
@@ -44,13 +44,16 @@ body {
   }
   
   .back-button {
-    margin-top: 20px;
     border-radius: 20px;
-    background-color: #3f51b5;
+    background: linear-gradient(to right, #3f51b5, #5a55ae);
     color: white;
     transition: background-color 0.3s ease;
   }
   
   .back-button:hover {
-    background-color: #303f9f;
+    background: linear-gradient(to right, #303f9f, #4a45a1);
+  }
+  
+  .accordion-root {
+    width: 100%;
   }

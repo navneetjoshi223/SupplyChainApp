@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, Card, CardContent, List, ListItem, ListItemText, CircularProgress, Box, Paper, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -78,8 +80,21 @@ function CompanyDetailsPage() {
       </AppBar>
       <Container>
         <Paper elevation={3} className="company-info">
-          <Typography variant="h4" gutterBottom>{company.name}</Typography>
-          <Typography variant="h6" gutterBottom>{company.address}</Typography>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+            <Box>
+              <Typography variant="h4" gutterBottom>{company.name}</Typography>
+              <Typography variant="h6" gutterBottom>{company.address}</Typography>
+            </Box>
+            <Button 
+              variant="contained" 
+              component={Link} 
+              to="/" 
+              className="back-button"
+              startIcon={<ArrowBackIcon />}
+            >
+              Back to List
+            </Button>
+          </Box>
         </Paper>
         <MapContainer center={[company.latitude, company.longitude]} zoom={13} style={{ height: '400px', marginBottom: '20px' }}>
           <TileLayer
@@ -98,23 +113,26 @@ function CompanyDetailsPage() {
         <Card className="locations-card">
           <CardContent>
             <Typography variant="h5" gutterBottom>Locations</Typography>
-            <List>
-              {locations.map((location, index) => (
-                <ListItem key={index}>
-                  <ListItemText
-                    primary={location.name}
-                    secondary={`${location.address} (Lat: ${location.latitude}, Lon: ${location.longitude})`}
-                  />
-                </ListItem>
-              ))}
-            </List>
+            {locations.map((location, index) => (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel${index}-content`}
+                  id={`panel${index}-header`}
+                >
+                  <Typography variant="subtitle1">{location.name}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    {location.address} <br />
+                    <strong>Latitude:</strong> {location.latitude} <br />
+                    <strong>Longitude:</strong> {location.longitude}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
           </CardContent>
         </Card>
-        <Box mt={2}>
-          <Button variant="contained" color="primary" component={Link} to="/" className="back-button">
-            Back to List
-          </Button>
-        </Box>
       </Container>
     </>
   );
