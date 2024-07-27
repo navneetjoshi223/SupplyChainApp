@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+## Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend for the SupplyChainApp, built using React. The application provides a user-friendly interface to view and interact with company data, including a list of companies and detailed information for each company, displayed on a map with location markers.
 
-## Available Scripts
+## Pages and Features
 
-In the project directory, you can run:
+Company List Page
 
-### `npm start`
+	•	Displays a list or grid of companies fetched from the backend API.
+	•	Each company item shows basic information (name, address).
+	•	Search and Filter Functionality:
+	•	Allows users to search for companies by name.
+	•	Navigation:
+	•	Clicking on a company navigates to the Company Details Page for detailed information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Company Details Page
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+	•	Detailed Information Display:
+	•	Shows detailed information about the selected company (name, address).
+	•	Map Integration:
+	•	Integrates a map component (using Leaflet) to show the company’s main location.
+	•	Displays a list of possible locations for the company with markers on the map.
+	•	Interactive list items that, when clicked, highlight the corresponding marker on the map.
+	•	Location Details:
+	•	Lists the locations including name, address, latitude, and longitude.
+	•	Navigation:
+	•	A “Back to List” button to return to the Company List Page.
 
-### `npm test`
+## Libraries Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+	•	React: JavaScript library for building user interfaces.
+	•	Material-UI: React components for faster and easier web development.
+	•	React Router: Declarative routing for React applications.
+	•	React-Leaflet: React components for Leaflet maps.
+	•	Leaflet: JavaScript library for interactive maps.
