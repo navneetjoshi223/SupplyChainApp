@@ -1,3 +1,4 @@
+// CompanyListPage.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, Button, TextField, CircularProgress, Box, Paper, InputAdornment } from '@mui/material';
@@ -62,9 +63,9 @@ function CompanyListPage() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" className="app-bar">
         <Toolbar>
-          <Typography variant="h6">Company List</Typography>
+          <Typography variant="h6" className="app-bar-title">Company List</Typography>
         </Toolbar>
       </AppBar>
       <Container>
@@ -77,9 +78,10 @@ function CompanyListPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            classes={{ root: 'text-field-root' }}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position="start" className="input-adornment">
                   <SearchIcon />
                 </InputAdornment>
               ),
@@ -88,7 +90,7 @@ function CompanyListPage() {
         </Box>
         <Grid container spacing={3}>
           {filteredCompanies.map(company => (
-            <Grid item xs={12} sm={6} md={4} key={company.id}>
+            <Grid item xs={12} sm={6} md={4} key={company.company_id}>
               <Paper elevation={3} className="card">
                 <CardContent className="card-content">
                   <Typography variant="h5" component="div" className="card-title card-text">
@@ -102,7 +104,7 @@ function CompanyListPage() {
                   variant="contained"
                   color="primary"
                   component={Link}
-                  to={`/company/${company.id}`}
+                  to={`/company/${company.company_id}`}
                   endIcon={<ArrowForwardIosIcon />}
                   className="view-details-button"
                 >
