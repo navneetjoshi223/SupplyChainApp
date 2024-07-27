@@ -1,10 +1,12 @@
 from flask import Flask
+from flask_cors import CORS
 import logging
 from flasgger import Swagger
 
 def create_app():
     app = Flask(__name__)
-
+    CORS(app)
+    
     # Set up logging
     logging.basicConfig(filename='app.log', level=logging.INFO,
                         format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
