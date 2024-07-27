@@ -13,8 +13,7 @@ pip install -r requirements.txt
 python -m venv venv
 
 
-Navigate to /backend folder,
-### Run commands:
+### Navigate to /backend folder and run commands:
 source venv/bin/activate
 
 python -m app.main
