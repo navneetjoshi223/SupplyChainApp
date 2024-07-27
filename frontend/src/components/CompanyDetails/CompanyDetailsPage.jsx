@@ -100,7 +100,7 @@ function CompanyDetailsPage() {
     <>
       <AppBar position="static" className="app-bar">
         <Toolbar>
-          <Typography variant="h6" className="app-bar-title">Company Details</Typography>
+          <Typography variant="h6" className="app-bar-title">SupplyChainApp</Typography>
         </Toolbar>
       </AppBar>
       <Container>

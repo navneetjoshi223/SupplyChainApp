@@ -65,7 +65,7 @@ function CompanyListPage() {
     <>
       <AppBar position="static" className="app-bar">
         <Toolbar>
-          <Typography variant="h6" className="app-bar-title">Company List</Typography>
+          <Typography variant="h6" className="app-bar-title">SupplyChainApp</Typography>
         </Toolbar>
       </AppBar>
       <Container>
