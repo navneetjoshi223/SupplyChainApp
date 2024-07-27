@@ -1,7 +1,8 @@
-// CompanyListPage.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, Button, TextField, CircularProgress } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, Button, TextField, CircularProgress, Box, Paper, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './CompanyListPage.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -12,6 +13,7 @@ function CompanyListPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchFocused, setSearchFocused] = useState(false);
 
   useEffect(() => {
     fetch(`${apiUrl}/companies`)
@@ -40,12 +42,22 @@ function CompanyListPage() {
     setFilteredCompanies(results);
   }, [searchTerm, companies]);
 
+  const handleFocus = () => {
+    setSearchFocused(true);
+  };
+
+  const handleBlur = () => {
+    if (!searchTerm) {
+      setSearchFocused(false);
+    }
+  };
+
   if (loading) {
-    return <CircularProgress />;
+    return <div className="loading-spinner"><CircularProgress /></div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error-message">Error: {error}</div>;
   }
 
   return (
@@ -56,23 +68,33 @@ function CompanyListPage() {
         </Toolbar>
       </AppBar>
       <Container>
-        <TextField
-          label="Search Companies"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <Grid container spacing={3} style={{ marginTop: '20px' }}>
+        <Box className={`search-container ${searchFocused ? 'focused' : ''}`}>
+          <TextField
+            label="Search Companies"
+            variant="outlined"
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+        <Grid container spacing={3}>
           {filteredCompanies.map(company => (
-            <Grid item xs={12} sm={6} md={4} key={company.company_id}>
-              <Card className="card">
+            <Grid item xs={12} sm={6} md={4} key={company.id}>
+              <Paper elevation={3} className="card">
                 <CardContent className="card-content">
-                  <Typography variant="h5" component="div" className="card-text">
+                  <Typography variant="h5" component="div" className="card-title card-text">
                     {company.name}
                   </Typography>
-                  <Typography color="textSecondary" className="card-text">
+                  <Typography className="card-address card-text">
                     {company.address}
                   </Typography>
                 </CardContent>
@@ -80,12 +102,13 @@ function CompanyListPage() {
                   variant="contained"
                   color="primary"
                   component={Link}
-                  to={`/company/${company.company_id}`}
-                  style={{ margin: '10px' }}
+                  to={`/company/${company.id}`}
+                  endIcon={<ArrowForwardIosIcon />}
+                  className="view-details-button"
                 >
                   View Details
                 </Button>
-              </Card>
+              </Paper>
             </Grid>
           ))}
         </Grid>
