@@ -1,4 +1,9 @@
-.card {
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -6,13 +11,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
   }
   
   .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
   
   .card-content {
@@ -29,6 +33,7 @@
   .card-title {
     font-weight: bold;
     font-size: 1.25rem;
+    color: #333;
   }
   
   .card-address {
@@ -58,13 +63,31 @@
   }
   
   .view-details-button {
-    margin: 10px;
+    margin-top: 10px;
     border-radius: 20px;
-    background-color: #3f51b5;
+    background: linear-gradient(to right, #3f51b5, #5a55ae);
     color: white;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
   }
   
   .view-details-button:hover {
-    background-color: #303f9f;
+    background: linear-gradient(to right, #303f9f, #4a45a1);
+  }
+  
+  .app-bar {
+    background: linear-gradient(to right, #3f51b5, #5a55ae);
+  }
+  
+  .app-bar-title {
+    flex-grow: 1;
+    font-weight: bold;
+  }
+  
+  .text-field-root {
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  .input-adornment {
+    color: #757575;
   }
