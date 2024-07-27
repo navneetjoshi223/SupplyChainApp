@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, Button, TextField, CircularProgress, Box, Paper, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import './CompanyListPage.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -58,7 +59,27 @@ function CompanyListPage() {
   }
 
   if (error) {
-    return <div className="error-message">Error: {error}</div>;
+    return (
+      <Container>
+        <Paper elevation={3} className="error-container">
+          <Box display="flex" flexDirection="column" alignItems="center" p={4}>
+            <ErrorOutlineIcon color="error" style={{ fontSize: 60, marginBottom: 16 }} />
+            <Typography variant="h5" gutterBottom>Error</Typography>
+            <Typography variant="body1" align="center">
+              Could not fetch the company list. Please try again!
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => window.location.reload()}
+              style={{ marginTop: 16 }}
+            >
+              Retry
+            </Button>
+          </Box>
+        </Paper>
+      </Container>
+    );
   }
 
   return (
