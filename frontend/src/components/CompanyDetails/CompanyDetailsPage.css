@@ -28,29 +28,74 @@ body {
   
   .company-info {
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     border-radius: 15px;
     background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
   }
   
   .locations-card {
-    margin-top: 20px;
+    margin: 20px 0;
     border-radius: 15px;
   }
   
   .map-container {
+    margin: 20px 0;
     border-radius: 15px;
     overflow: hidden;
+    height: 400px;
   }
   
   .back-button {
-    margin-top: 20px;
     border-radius: 20px;
-    background-color: #3f51b5;
+    background: linear-gradient(to right, #3f51b5, #5a55ae);
     color: white;
     transition: background-color 0.3s ease;
   }
   
   .back-button:hover {
-    background-color: #303f9f;
+    background: linear-gradient(to right, #303f9f, #4a45a1);
+  }
+  
+  .accordion-root {
+    width: 100%;
+  }
+  
+  /* Add hover effects and animations */
+  .accordion-summary:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .map-container .leaflet-popup-content-wrapper,
+  .map-container .leaflet-popup-tip {
+    background: #3f51b5;
+    color: white;
+  }
+  
+  .map-container .leaflet-popup-content-wrapper {
+    border-radius: 5px;
+  }
+  
+  .map-container .leaflet-popup-tip-container {
+    display: none;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .company-info {
+      padding: 10px;
+      margin: 10px 0;
+    }
+  
+    .map-container {
+      height: 300px;
+    }
+  
+    .back-button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .accordion-summary {
+      font-size: 1rem;
+    }
   }
