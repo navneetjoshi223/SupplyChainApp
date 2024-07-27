@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Container, Card, CardContent, CircularProgress, Box, Paper, Button, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './CompanyDetailsPage.css';
@@ -26,6 +26,18 @@ const selectedIcon = L.icon({
   shadowSize: [82, 82]
 });
 
+function MapFlyTo({ selectedLocation }) {
+  const map = useMap();
+  
+  useEffect(() => {
+    if (selectedLocation) {
+      map.flyTo([selectedLocation.latitude, selectedLocation.longitude], 14);
+    }
+  }, [selectedLocation, map]);
+
+  return null;
+}
+
 function CompanyDetailsPage() {
   const { id } = useParams();
   const [company, setCompany] = useState(null);
@@ -33,7 +45,6 @@ function CompanyDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const mapRef = useRef();
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -71,9 +82,6 @@ function CompanyDetailsPage() {
 
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
-    if (mapRef.current) {
-      mapRef.current.flyTo([location.latitude, location.longitude], 14);
-    }
   };
 
   if (loading) {
@@ -141,7 +149,11 @@ function CompanyDetailsPage() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={3} className="map-container">
-              <MapContainer center={[company.latitude, company.longitude]} zoom={13} style={{ height: '400px' }} whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}>
+              <MapContainer
+                center={[company.latitude, company.longitude]}
+                zoom={13}
+                style={{ height: '400px' }}
+              >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -159,6 +171,7 @@ function CompanyDetailsPage() {
                     <Popup>{location.name}</Popup>
                   </Marker>
                 ))}
+                <MapFlyTo selectedLocation={selectedLocation} />
               </MapContainer>
             </Paper>
           </Grid>
