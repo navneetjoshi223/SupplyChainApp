@@ -1,5 +1,5 @@
 # SupplyChainApp
-Project as part of take home assessment for Supply chain data hub Research Assistantship. The application has backend APIs written in Python using Flask, a frontend with two pages coded in React and map integration using Leaflet. It is containerized using Docker.
+The application has backend APIs written in Python using Flask, a frontend with two pages coded in React and map integration using Leaflet. It is containerized using Docker.
 
 This README contains instructions on how to run the backend and frontend for this application. For detailed info about backend APIs or frontend features and libraries used, please check the README files under the respective folders.
 
